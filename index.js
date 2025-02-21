@@ -2,6 +2,8 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import connectDB from './Database/config.js'
+import authRouter from './Routers/authRouter.js'
+import userRouter from './Routers/userRouter.js'
 
 dotenv.config()
 
@@ -23,7 +25,8 @@ app.get('/',(req,res)=>{
 })
 
 //API routers
-
+app.use('/api/auth',authRouter)
+app.use('/api/user',userRouter)
 
 //ErrorHandler - middleware
 app.use((err,req,res,next)=>{
