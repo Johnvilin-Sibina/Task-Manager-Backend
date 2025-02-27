@@ -6,8 +6,6 @@ export const addTask = async (req, res, next) => {
     try {
         const { title, description, dueDate, priority, status, user } = req.body;
 
-        console.log(title, description, dueDate, priority, status, user )
-
         if(!title || !description || !dueDate || !priority || !status || !user){
             return next(errorHandler(400,'Some credentials are missing'))
         }
@@ -34,7 +32,6 @@ export const addTask = async (req, res, next) => {
         res.status(200).json({ message: "Task added successfully", newTask });
     } catch (error) {
         next(errorHandler(500, "Error adding task"));
-        console.log(error)
     }
 };
 
@@ -43,7 +40,6 @@ export const getTasks = async(req,res,next)=>{
     
     try {
         const tasks = await Task.find({ user: id })
-        console.log(tasks)
      if(!tasks || tasks.length === 0){
         return next(errorHandler(400,'There are no tasks to be displayed. Please add a task.'))
      }
@@ -51,7 +47,6 @@ export const getTasks = async(req,res,next)=>{
         res.status(200).json({message:'Tasks fetched successfully.',tasks})
      }
     } catch (error) {
-        console.log(error)
         return next(errorHandler(500,'Something went wrong. Cannot fetch tasks'))
     }
 
@@ -86,7 +81,6 @@ export const getTask = async(req,res,next)=>{
         res.status(200).json({message:"Task fetched successfully",task})
     } catch (error) {
         next(errorHandler(500,'Something went wrong. Cannot fetch task'))
-        console.log(error)
     }
 }
 
